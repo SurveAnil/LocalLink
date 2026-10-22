@@ -1,0 +1,36 @@
+# Local credentials and environment overrides
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+
+# Build output and dependency caches
+**/target/
+**/build/
+**/out/
+**/dist/
+**/node_modules/
+**/coverage/
+*.class
+
+# Local runtime state and uploaded files
+/backend/data/
+*.mv.db
+*.trace.db
+
+# IDE and workspace metadata
+.idea/
+.vscode/
+.metadata/
+.settings/
+*.iml
+.classpath
+.project
+
+# Operating system and logs
+.DS_Store
+Thumbs.db
+*.log
