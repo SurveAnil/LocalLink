@@ -1,6 +1,8 @@
 
 package com.locallink.backend.room;
 
+import java.time.Instant;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -13,6 +15,9 @@ import org.springframework.data.repository.query.Param;
 public interface RoomRepository extends JpaRepository<Room, UUID> {
 
     Optional<Room> findByCode(String code);
+
+    List<Room> findByStatusOrExpiresAtLessThanEqual(
+            Room.RoomStatus status, Instant expiresAt);
 
     @Lock(LockModeType.PESSIMISTIC_WRITE)
     @Query("select room from Room room where room.code = :code")

@@ -1,38 +1,32 @@
 package com.locallink.backend.RoomControllerIntegrationTest;
 
-import org.springframework.test.web.servlet.MvcResult;
+import java.time.Instant;
 import java.util.UUID;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import com.fasterxml.jackson.databind.JsonNode;
-import org.junit.jupiter.api.BeforeEach;
-import org.springframework.http.HttpHeaders;
-import org.springframework.test.web.servlet.MvcResult;
-import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
-
-import java.util.UUID;
-
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.mock.web.MockMultipartFile;
+import com.locallink.backend.device.Device;
 import com.locallink.backend.device.DeviceRepository;
+import com.locallink.backend.files.RoomFileRepository;
+import com.locallink.backend.files.RoomFileService;
 import com.locallink.backend.room.Room;
 import com.locallink.backend.room.RoomRepository;
 import com.locallink.backend.session.SessionToken;
 import com.locallink.backend.session.SessionTokenRepository;
-import com.locallink.backend.files.RoomFileRepository;
-import com.locallink.backend.files.RoomFileService;
-import java.time.Instant;
 
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
+
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
-import org.springframework.http.MediaType;
-import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
 
 @SpringBootTest(properties = {
         "locallink.files.max-size-bytes=3",
@@ -411,6 +405,20 @@ class RoomControllerIntegrationTest {
                 com.locallink.backend.device.Device.DeviceStatus.DISCONNECTED,
                 deviceRepository.findById(UUID.fromString(guestDeviceId))
                         .orElseThrow().getStatus());
+    }
+
+    @Test
+    void memberCountExcludesIdleDevices() throws Exception {
+        Device host = deviceRepository.findById(roomA.deviceId())
+                        .orElseThrow();
+        host.setLastSeenAt(Instant.now().minusSeconds(121));
+        deviceRepository.save(host);
+
+        mockMvc.perform(get("/api/v1/rooms/{roomId}", roomA.roomId())
+                                .header(HttpHeaders.AUTHORIZATION,
+                                        "Bearer " + roomA.token()))
+                        .andExpect(status().isOk())
+                        .andExpect(jsonPath("$.memberCount").value(0));
     }
 
     @Test

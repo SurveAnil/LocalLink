@@ -16,11 +16,10 @@ import com.locallink.backend.device.DeviceRepository;
 import com.locallink.backend.files.RoomFileResponse;
 import com.locallink.backend.room.Room;
 import com.locallink.backend.room.RoomRepository;
+import com.locallink.backend.room.RoomPresencePolicy;
 
 @Component
 public class RoomRealtimePublisher {
-
-    private static final long MEMBER_IDLE_SECONDS = 120;
 
     private final SimpMessagingTemplate messagingTemplate;
     private final RoomRepository roomRepository;
@@ -74,12 +73,12 @@ public class RoomRealtimePublisher {
     }
 
     private void publishMemberCountIfChanged(Room room) {
-        Instant activeAfter = Instant.now().minusSeconds(MEMBER_IDLE_SECONDS);
-        long memberCount = deviceRepository.findByRoomId(room.getId()).stream()
-                .filter(device ->
-                        device.getStatus() == Device.DeviceStatus.ACTIVE
-                                && device.getLastSeenAt().isAfter(activeAfter))
-                .count();
+        Instant now = Instant.now();
+        long memberCount =
+                deviceRepository.countByRoomIdAndStatusAndLastSeenAtAfter(
+                        room.getId(),
+                        Device.DeviceStatus.ACTIVE,
+                        RoomPresencePolicy.activeSince(now));
         Long previous = lastPublishedMemberCounts.put(room.getId(), memberCount);
         if (previous == null || previous != memberCount) {
             messagingTemplate.convertAndSend(

@@ -30,7 +30,6 @@ import com.locallink.backend.realtime.RoomRealtimePublisher;
 @Service
 public class RoomService {
 
-    private static final long MEMBER_IDLE_SECONDS = 120;
     private static final int MAX_HOST_PIN_ATTEMPTS = 5;
     private static final long HOST_PIN_LOCK_MINUTES = 15;
 
@@ -179,14 +178,11 @@ public class RoomService {
     }
 
     // Check room capacity.
-    List<Device> devices = deviceRepository.findByRoomId(room.getId());
-
-    Instant activeAfter = now.minusSeconds(MEMBER_IDLE_SECONDS);
-    long activeMembers = devices.stream()
-            .filter(device ->
-                    device.getStatus() == Device.DeviceStatus.ACTIVE
-                            && device.getLastSeenAt().isAfter(activeAfter))
-            .count();
+    long activeMembers =
+            deviceRepository.countByRoomIdAndStatusAndLastSeenAtAfter(
+                    room.getId(),
+                    Device.DeviceStatus.ACTIVE,
+                    RoomPresencePolicy.activeSince(now));
 
     if (activeMembers >= room.getMaxMembers()) {
         throw new IllegalArgumentException("This room is full.");
@@ -243,13 +239,12 @@ public class RoomService {
                 .orElseThrow(RoomNotFoundException::new);
         ensureRoomActive(room);
 
-        Instant activeAfter = Instant.now()
-                .minusSeconds(MEMBER_IDLE_SECONDS);
-        long memberCount = deviceRepository.findByRoomId(roomId).stream()
-                .filter(device ->
-                        device.getStatus() == Device.DeviceStatus.ACTIVE
-                                && device.getLastSeenAt().isAfter(activeAfter))
-                .count();
+        Instant now = Instant.now();
+        long memberCount =
+                deviceRepository.countByRoomIdAndStatusAndLastSeenAtAfter(
+                        roomId,
+                        Device.DeviceStatus.ACTIVE,
+                        RoomPresencePolicy.activeSince(now));
 
         return new RoomDetailsResponse(
                 room.getId(),

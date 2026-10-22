@@ -172,10 +172,9 @@ public class RoomFileService {
     @Scheduled(cron = "${locallink.files.cleanup-cron:0 15 3 * * *}")
     @Transactional
     public void cleanupExpiredRoomFiles() {
-        List<Room> expiredRooms = roomRepository.findAll().stream()
-                .filter(room -> room.getStatus() == Room.RoomStatus.EXPIRED
-                        || !room.getExpiresAt().isAfter(Instant.now()))
-                .toList();
+        List<Room> expiredRooms =
+                roomRepository.findByStatusOrExpiresAtLessThanEqual(
+                        Room.RoomStatus.EXPIRED, Instant.now());
         if (expiredRooms.isEmpty()) {
             return;
         }
