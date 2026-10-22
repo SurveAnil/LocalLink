@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#ffffff">
+    <title>Create a Room | LocalLink</title>
+    <link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg">
+    <link rel="stylesheet" href="../../styles/global.css">
+    <link rel="stylesheet" href="../../styles/pages/Create Room/style.css">
+    <link rel="stylesheet" href="../../styles/components/header.css">
+    <link rel="stylesheet" href="../../styles/components/page-heading.css">
+</head>
+
+<body>
+    <header id="header-container" class="header"></header>
+    <main class="create-room-container">
+        <section class="page-header" aria-labelledby="create-room-title">
+            <button class="back-btn" type="button"
+                    onclick="history.back()" aria-label="Go back">
+                <img src="../../assets/back-btn.svg" alt="" width="24" height="24">
+            </button>
+            <div class="page-heading-copy">
+                <h1 id="create-room-title">Create Room</h1>
+                <p>Create a private room and invite nearby devices to join.</p>
+            </div>
+        </section>
+
+        <form id="create-room-form">
+            <section class="input-section" aria-label="Room details">
+                <div class="form-group">
+                    <label for="room-name">Room name</label>
+                    <input type="text" id="room-name" value="Project Meeting"
+                           maxlength="32" required>
+                    <div class="char-count" aria-live="polite">15/32</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="your-name">Your name</label>
+                    <input type="text" id="your-name"
+                           maxlength="32" required>
+                    <div class="char-count" aria-live="polite">0/32</div>
+                </div>
+                <div class="form-group">
+                    <label for="host-recovery-pin">Host recovery PIN (4 digits)</label>
+                    <input type="password" id="host-recovery-pin"
+                           inputmode="numeric" autocomplete="new-password"
+                           maxlength="4" pattern="[0-9]{4}" required>
+                    <p class="field-help">Keep this PIN private. You will need it to recover host access on another device.</p>
+                </div>
+            </section>
+
+            <section class="options-section" aria-labelledby="options-title">
+                <h2 class="options-title" id="options-title">Options</h2>
+
+                <label class="checkbox-container">
+                    <input id="files-allowed" type="checkbox" checked>
+                    <span class="checkmark"></span>
+                    Allow file sharing (recommended)
+                </label>
+
+                <div class="inline-option">
+                    <label class="checkbox-container">
+                        <input id="auto-close-enabled" type="checkbox" checked>
+                        <span class="checkmark"></span>
+                        Auto close room after
+                    </label>
+                    <select id="auto-close" class="time-select"
+                            aria-label="Room expiration">
+                        <option value="1">1 hour</option>
+                        <option value="12">12 hours</option>
+                        <option value="24">24 hours</option>
+                    </select>
+                </div>
+            </section>
+
+            <section class="submit-section">
+                <button class="primary-btn" type="submit">Create Room</button>
+            </section>
+        </form>
+    </main>
+    <script src="../../scripts/components/header.js"></script>
+    <script src="../../scripts/connection-manager.js"></script>
+    <script src="../../scripts/pages/Create Room/create_room.js"></script>
+</body>
+
+</html>

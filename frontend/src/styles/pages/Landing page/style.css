@@ -1,0 +1,185 @@
+/* ==========================================
+   Landing Page Specific Styles
+   ========================================== */
+/* Remove background properties from body */
+body {
+    font-family: var(--font-stack);
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    font-size: 16px;
+    line-height: 1.5;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    overflow-x: hidden;
+}
+
+/* Ensure main takes up available space and keeps a clean gap */
+main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 24px 16px 60px 16px; /* Space at the bottom before the footer graphic */
+    max-width: 800px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+/* Pin the mountain image to the bottom as a true footer */
+.footer-graphic {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: -1; /* Keeps it behind your buttons if they ever cross over */
+    pointer-events: none; /* Allows clicks to pass through */
+    line-height: 0;
+}
+
+.footer-graphic img {
+    width: 100%;
+    height: auto;
+    display: block;
+    max-height: 250px; /* Controls how tall the mountains appear */
+    object-fit: cover;
+}
+
+/* Header typography section */
+.outer-div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-top: 12px;
+    margin-bottom: 12px;
+}
+
+.inner-div-1 h1 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--text-main);
+    letter-spacing: -0.025em;
+    line-height: 1.2;
+    margin: 0;
+}
+
+.inner-div-2 h1 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--primary);
+    letter-spacing: -0.025em;
+    line-height: 1.2;
+    margin: 0;
+}
+
+/* Subtitles section */
+main > section:nth-of-type(2) {
+    text-align: center;
+    color: var(--text-muted);
+    margin-bottom: 36px;
+    font-size: 1rem;
+}
+
+/* ==========================================
+   Feature Cards Layout
+   ========================================== */
+main > section:nth-of-type(3) {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    width: 100%;
+    margin-bottom: 48px;
+    flex-wrap: wrap;
+}
+
+main > section:nth-of-type(3) > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    max-width: 140px;
+}
+
+/* Directly target your SVG images that already have the circle background */
+main > section:nth-of-type(3) img {
+    width: 72px;  /* Scale up from 42px to match your design size */
+    height: 72px;
+    object-fit: contain;
+    margin-bottom: 14px;
+}
+
+main > section:nth-of-type(3) p {
+    font-size: 0.95rem;
+    color: var(--text-main);
+    font-weight: 500;
+    line-height: 1.3;
+}
+
+/* ==========================================
+   Action Buttons Section
+   ========================================== */
+.landing-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+    max-width: 420px;
+}
+
+.landing-action {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 48px;
+    padding: 10px 16px;
+    border-radius: var(--radius-card);
+    font-size: 1rem;
+    font-weight: 600;
+    text-align: center;
+    text-decoration: none;
+    transition:
+        background-color var(--transition-speed) ease,
+        border-color var(--transition-speed) ease,
+        transform 0.1s ease;
+}
+
+.landing-action-primary {
+    border: 1px solid var(--primary);
+    background-color: var(--primary);
+    color: #ffffff;
+    box-shadow: 0 4px 12px rgba(30, 107, 224, 0.2);
+}
+
+.landing-action-primary:hover {
+    background-color: var(--primary-dark);
+}
+
+.landing-action-secondary {
+    border: 1px solid #cbd5e1;
+    background-color: #ffffff;
+    color: var(--primary);
+}
+
+.landing-action-secondary:hover {
+    background-color: #ebf3ff;
+    border-color: var(--primary);
+}
+
+.landing-action:active {
+    transform: scale(0.98);
+}
+
+.landing-action:focus-visible {
+    outline: 2px solid var(--color-focus);
+    outline-offset: 3px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+    .inner-div-1 h1, .inner-div-2 h1 {
+        font-size: 1.8rem;
+    }
+}
