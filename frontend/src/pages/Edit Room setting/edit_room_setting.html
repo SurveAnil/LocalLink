@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#ffffff">
+
+    <title>Edit Room Settings | LocalLink</title>
+
+    <link rel="icon" type="image/svg+xml"
+          href="../../assets/favicon.svg">
+    <link rel="stylesheet" href="../../styles/global.css">
+    <link rel="stylesheet" href="../../styles/pages/Edit Room setting/style.css">
+    <link rel="stylesheet" href="../../styles/components/header.css">
+    <link rel="stylesheet" href="../../styles/components/page-heading.css">
+</head>
+
+<body>
+    <!-- Do not change header -->
+    <header id="header-container" class="header"></header>
+
+    <main class="edit-room-page">
+        <section class="page-heading" aria-labelledby="page-title">
+            <button class="back-btn" type="button"
+                    onclick="history.back()" aria-label="Go back">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M19 12H5m7 7-7-7 7-7"/>
+                </svg>
+            </button>
+            <h1 id="page-title">Edit Room Settings</h1>
+        </section>
+
+        <form id="room-settings-form">
+            <div class="form-group">
+                <label for="room-name">Room name</label>
+                <input
+                    id="room-name"
+                    name="roomName"
+                    type="text"
+                    value="Project Meeting"
+                    maxlength="32"
+                    autocomplete="off"
+                    required
+                >
+                <div class="input-footer">
+                    <span id="room-name-error" role="alert"></span>
+                    <span class="char-count" id="room-name-count"
+                          aria-live="polite">15/32</span>
+                </div>
+            </div>
+
+            <div class="setting-row">
+                <label class="setting-label" for="auto-close">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <circle cx="12" cy="12" r="9"/>
+                        <path d="M12 7v5l3 2M5 3 3 5m16-2 2 2"/>
+                    </svg>
+                    <span>Auto close room after</span>
+                </label>
+                <select id="auto-close" name="autoCloseHours">
+                    <option value="1">1 hour</option>
+                    <option value="6">6 hours</option>
+                    <option value="12">12 hours</option>
+                    <option value="24" selected>24 hours</option>
+                    <option value="48">48 hours</option>
+                </select>
+            </div>
+
+            <fieldset class="files-section">
+                <legend>Files allowed</legend>
+                <label class="checkbox-option" for="files-allowed">
+                    <input
+                        id="files-allowed"
+                        name="filesAllowed"
+                        type="checkbox"
+                        checked
+                    >
+                    <span class="checkbox-copy">
+                        <span>Allow file sharing</span>
+                        <span class="helper-text">Recommended for better experience</span>
+                    </span>
+                </label>
+            </fieldset>
+
+            <div class="form-actions">
+                <button class="button button-secondary" id="cancel-button"
+                        type="button">Cancel</button>
+                <button class="button button-primary"
+                        type="submit">Save Changes</button>
+            </div>
+
+            <p class="save-status" id="save-status" role="status"
+               aria-live="polite"></p>
+        </form>
+    </main>
+
+    <!-- Existing shared header script -->
+    <script src="../../scripts/components/header.js"></script>
+    <script src="../../scripts/pages/Edit Room setting/edit.js"></script>
+</body>
+
+</html>
