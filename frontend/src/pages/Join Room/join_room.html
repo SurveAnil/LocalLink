@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#ffffff">
+    <title>Join a Room | LocalLink</title>
+    <link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg">
+    <link rel="stylesheet" href="../../styles/global.css">
+    <link rel="stylesheet" href="../../styles/pages/Join Room/style.css">
+    <link rel="stylesheet" href="../../styles/components/header.css">
+    <link rel="stylesheet" href="../../styles/components/page-heading.css">
+</head>
+
+<body>
+    <header id="header-container" class="header"></header>
+    <main class="join-room-container">
+        <!-- Header Section -->
+        <section class="page-header">
+            <button class="back-btn" type="button"
+                    onclick="history.back()" aria-label="Go back">
+                <img src="../../assets/back-btn.svg" alt="" width="24" height="24">
+            </button>
+            <h2>Join a Room</h2>
+        </section>
+
+        <form id="join-room-form">
+        <!-- Inputs Section -->
+        <section class="input-section">
+            <div class="form-group">
+                <label for="room-name">Room code</label>
+                <input type="text" id="room-name" placeholder="MEETING-4829"
+                       maxlength="32" required
+                       pattern="[a-zA-Z0-9][a-zA-Z0-9_\x2d]{2,31}">
+
+            </div>
+            <div class="PIN-div">
+                <label for="pin">PIN (6 digits)</label>
+                <div class="input-icon-wrapper">
+                <input type="password" id="pin" inputmode="numeric"
+                       autocomplete="one-time-code" maxlength="6"
+                       placeholder="123456" required pattern="[0-9]{6}">
+                <button type="button" class="eye-btn" aria-label="Toggle PIN visibility">
+                    <svg viewBox="0 0 24 24" width="20" height="20" stroke="#4a5568" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                        <circle cx="12" cy="12" r="3"></circle>
+                    </svg>
+                </button>
+            </div>
+        </div>
+            <div class="form-group">
+                <label for="your-name">Your name</label>
+                <input type="text" id="your-name" maxlength="32" required>
+                <div class="char-count">0/32</div>
+            </div>
+        </section>
+
+        <!-- Submit Button -->
+        <section class="submit-section">
+            <button class="primary-btn" type="submit">Join Room</button>
+        </section>
+        </form>
+
+        <section class="host-recovery" aria-labelledby="host-recovery-title">
+            <div>
+                <h2 id="host-recovery-title">Already the host?</h2>
+                <p>Enter your room code above to reopen the host dashboard on this browser.</p>
+            </div>
+            <button class="host-recovery-btn" type="button" id="recover-host">
+                Recover on this device
+            </button>
+            <button class="host-recovery-btn" type="button"
+                    id="open-host-pin-recovery">
+                Recover Host Access on another device
+            </button>
+            <p class="host-recovery-status" id="host-recovery-status"
+               role="status" aria-live="polite" hidden></p>
+        </section>
+
+        <dialog class="host-recovery-dialog" id="host-pin-recovery-dialog"
+                aria-labelledby="host-pin-recovery-title">
+            <form id="host-pin-recovery-form">
+                <h2 id="host-pin-recovery-title">Recover Host Access</h2>
+                <label for="recovery-room-code">Room code</label>
+                <input id="recovery-room-code" type="text" maxlength="32"
+                       autocomplete="off" required
+                       pattern="[a-zA-Z0-9][a-zA-Z0-9_\x2d]{2,31}">
+                <label for="recovery-room-pin">Room PIN</label>
+                <input id="recovery-room-pin" type="password"
+                       inputmode="numeric" maxlength="6"
+                       autocomplete="one-time-code" required pattern="[0-9]{6}">
+                <label for="recovery-host-pin">Host recovery PIN</label>
+                <input id="recovery-host-pin" type="password"
+                       inputmode="numeric" maxlength="4"
+                       autocomplete="off" required pattern="[0-9]{4}">
+                <p id="host-pin-recovery-status" role="status"
+                   aria-live="polite" hidden></p>
+                <div class="host-recovery-dialog-actions">
+                    <button type="button" id="cancel-host-pin-recovery">Cancel</button>
+                    <button type="submit" class="primary-btn">Verify and recover</button>
+                </div>
+            </form>
+        </dialog>
+
+        <!-- Bottom QR Code Section -->
+        <div class="Scan-QR-section">
+            <div class="qr-left">
+                <!-- Inline SVG for the QR icon placeholder -->
+                <svg viewBox="0 0 24 24" width="24" height="24" stroke="#4a5568" stroke-width="2" fill="none">
+                    <rect x="3" y="3" width="7" height="7"></rect>
+                    <rect x="14" y="3" width="7" height="7"></rect>
+                    <rect x="14" y="14" width="7" height="7"></rect>
+                    <rect x="3" y="14" width="7" height="7"></rect>
+                </svg>
+                <span>Or scan a QR code</span>
+            </div>
+            <button class="scan-qr-btn" type="button" id="open-qr-scanner">
+                Scan QR Code
+            </button>
+        </div>
+    </main>
+
+    <script src="../../scripts/components/header.js"></script>
+    <script src="../../scripts/connection-manager.js"></script>
+    <script src="../../scripts/pages/Join Room/join_room.js"></script>
+</body>
+
+</html>
