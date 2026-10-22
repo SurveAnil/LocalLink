@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#ffffff">
+
+    <title>Help &amp; Support | LocalLink</title>
+
+    <link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg">
+    <link rel="stylesheet" href="../../styles/global.css">
+    <link rel="stylesheet" href="../../styles/pages/Help page/style.css">
+    <link rel="stylesheet" href="../../styles/components/header.css">
+    <link rel="stylesheet" href="../../styles/components/page-heading.css">
+</head>
+
+<body>
+
+    <header id="header-container" class="header"></header>
+
+    <main class="help-page">
+
+        <!-- Page heading -->
+        <section class="page-heading">
+            <button class="back-btn" type="button" onclick="history.back()" aria-label="Go back">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M19 12H5M12 19l-7-7 7-7" />
+                </svg>
+            </button>
+            <h1>Help &amp; Support</h1>
+        </section>
+
+        <!-- Search -->
+        <section class="search-section">
+            <label class="search-box" for="help-search">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <circle cx="11" cy="11" r="7"></circle>
+                    <path d="m16 16 4 4"></path>
+                </svg>
+
+                <input type="search" id="help-search" placeholder="Search help articles..." autocomplete="off"
+                    aria-label="Search help articles">
+            </label>
+            <p class="search-message" id="search-message" aria-live="polite"></p>
+        </section>
+
+
+        <!-- Popular Topics -->
+        <section class="topics-section">
+            <h2 class="section-title">Popular Topics</h2>
+
+            <div class="topics-list" id="topics-list">
+
+                <!-- Getting Started -->
+                <article class="topic-card" data-search="getting started create join room code pin qr">
+                    <button class="topic-toggle" type="button" aria-expanded="false"
+                        aria-controls="panel-getting-started">
+                        <span class="topic-icon">
+                            <svg viewBox="0 0 24 24" aria-hidden="true">
+                                <circle cx="12" cy="8" r="3.5" />
+                                <path d="M5 20v-2a7 7 0 0 1 14 0v2z" />
+                            </svg>
+                        </span>
+                        <span class="topic-content">
+                            <span class="topic-title">Getting Started</span>
+                            <span class="topic-description">Create or join a room</span>
+                        </span>
+                        <svg class="chevron" viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="m9 18 6-6-6-6" />
+                        </svg>
+                    </button>
+
+                    <div class="topic-panel" id="panel-getting-started" hidden>
+                        <p>Create a room to invite nearby devices, or join an existing room using its room code and PIN.
+                            You can also scan a QR code to join quickly.</p>
+                    </div>
+                </article>
+
+                <!-- File Sharing -->
+                <article class="topic-card" data-search="file sharing send receive files transfer accept decline">
+                    <button class="topic-toggle" type="button" aria-expanded="false" aria-controls="panel-file-sharing">
+                        <span class="topic-icon">
+                            <svg viewBox="0 0 24 24" aria-hidden="true">
+                                <rect x="3" y="5" width="18" height="15" rx="2" />
+                                <path d="m4 7 8 6 8-6" />
+                                <path d="m9 3 3-2 3 2" />
+                            </svg>
+                        </span>
+                        <span class="topic-content">
+                            <span class="topic-title">File Sharing</span>
+                            <span class="topic-description">Upload and download room files</span>
+                        </span>
+                        <svg class="chevron" viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="m9 18 6-6-6-6" />
+                        </svg>
+                    </button>
+
+                    <div class="topic-panel" id="panel-file-sharing" hidden>
+                        <p>Select a file and choose Upload &amp; Send. Files are uploaded to the room's LocalLink
+                            backend and listed for room participants. Both devices must be able to reach that backend,
+                            usually over the same Wi-Fi or hotspot.</p>
+                    </div>
+                </article>
+
+                <!-- Security & Privacy -->
+                <article class="topic-card" data-search="security privacy encryption safety code secure">
+                    <button class="topic-toggle" type="button" aria-expanded="false" aria-controls="panel-security">
+                        <span class="topic-icon">
+                            <svg viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M12 22s8-4 8-11V5l-8-3-8 3v6c0 7 8 11 8 11z" />
+                                <path d="m9 12 2 2 4-4" />
+                            </svg>
+                        </span>
+                        <span class="topic-content">
+                            <span class="topic-title">Security &amp; Privacy</span>
+                            <span class="topic-description">Authenticated room access</span>
+                        </span>
+                        <svg class="chevron" viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="m9 18 6-6-6-6" />
+                        </svg>
+                    </button>
+
+                    <div class="topic-panel" id="panel-security" hidden>
+                        <p>Room sessions are authenticated and access is limited to room participants. Chat and files
+                            are processed by the LocalLink backend; this version does not provide end-to-end
+                            encryption. Avoid sharing sensitive information, and use HTTPS when the network is not
+                            trusted.</p>
+                    </div>
+                </article>
+
+                <!-- Troubleshooting -->
+                <article class="topic-card"
+                    data-search="troubleshooting common issues fixes connection wifi network browser">
+                    <button class="topic-toggle" type="button" aria-expanded="false"
+                        aria-controls="panel-troubleshooting">
+                        <span class="topic-icon">
+                            <svg viewBox="0 0 24 24" aria-hidden="true">
+                                <path
+                                    d="m14.7 6.3 3-3a6 6 0 0 1-7.6 7.6l-6.5 6.5a2.1 2.1 0 0 0 3 3l6.5-6.5a6 6 0 0 0 7.6-7.6l-3 3z" />
+                            </svg>
+                        </span>
+                        <span class="topic-content">
+                            <span class="topic-title">Troubleshooting</span>
+                            <span class="topic-description">Common issues and fixes</span>
+                        </span>
+                        <svg class="chevron" viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="m9 18 6-6-6-6" />
+                        </svg>
+                    </button>
+
+                    <div class="topic-panel" id="panel-troubleshooting" hidden>
+                        <p>If a device cannot connect, check that both devices are on a compatible local network, verify
+                            the room code and PIN, and check whether firewall settings are blocking the connection. Make
+                            sure your browser supports the required features.</p>
+                    </div>
+                </article>
+
+                <!-- FAQ -->
+                <article class="topic-card" data-search="faq frequently asked questions internet large files offline">
+                    <button class="topic-toggle" type="button" aria-expanded="false" aria-controls="panel-faq">
+                        <span class="topic-icon">
+                            <svg viewBox="0 0 24 24" aria-hidden="true">
+                                <circle cx="12" cy="12" r="10" />
+                                <path d="M9.5 9a2.6 2.6 0 1 1 4.4 1.9c-1.2 1-1.9 1.4-1.9 3" />
+                                <path d="M12 17.5h.01" />
+                            </svg>
+                        </span>
+                        <span class="topic-content">
+                            <span class="topic-title">FAQ</span>
+                            <span class="topic-description">Frequently asked questions</span>
+                        </span>
+                        <svg class="chevron" viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="m9 18 6-6-6-6" />
+                        </svg>
+                    </button>
+
+                    <div class="topic-panel" id="panel-faq" hidden>
+                        <div class="faq-item">
+                            <h3>Does LocalLink require internet?</h3>
+                            <p>Communication over a compatible local network can work without internet. Remote relay
+                                transfers require internet access.</p>
+                        </div>
+                        <div class="faq-item">
+                            <h3>Can I share large files?</h3>
+                            <p>Local transfers support file sharing over supported connections. Internet-relay transfers
+                                have a 30 MB limit.</p>
+                        </div>
+                        <div class="faq-item">
+                            <h3>Do I need to install an application?</h3>
+                            <p>LocalLink is designed to work through a compatible web browser.</p>
+                        </div>
+                    </div>
+                </article>
+
+            </div>
+
+            <p class="no-results" id="no-results" hidden>
+                No matching topics found. Try another search.
+            </p>
+        </section>
+
+        <!-- Contact support -->
+        <section class="contact-card">
+            <span class="contact-icon">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <rect x="3" y="5" width="18" height="15" rx="2"></rect>
+                    <path d="m4 7 8 6 8-6"></path>
+                </svg>
+            </span>
+
+            <div class="contact-content">
+                <h2>Still need help?</h2>
+                <p>Contact our support team</p>
+            </div>
+
+            <a class="contact-btn" href="mailto:tech@anilsurve.me">
+                Contact Us
+            </a>
+        </section>
+
+
+
+    </main>
+
+    <!-- Existing header script: DO NOT CHANGE -->
+    <script src="../../scripts/components/header.js"></script>
+    <script src="../../scripts/pages/Help page/help.js"></script>
+</body>
+
+</html>
