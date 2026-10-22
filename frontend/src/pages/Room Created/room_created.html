@@ -1,0 +1,228 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#ffffff">
+
+    <title>Room Created | LocalLink</title>
+
+    <link rel="icon" type="image/svg+xml"
+          href="../../assets/favicon.svg">
+
+    <link rel="stylesheet" href="../../styles/global.css">
+    <link rel="stylesheet" href="../../styles/pages/Room Created/style.css">
+    <link rel="stylesheet" href="../../styles/components/header.css">
+    <link rel="stylesheet" href="../../styles/components/page-heading.css">
+</head>
+
+<body>
+    <header id="header-container" class="header"></header>
+
+    <main class="room-page">
+        <!-- Header Section -->
+        <section class="page-header">
+            <button class="back-btn" type="button"
+                    onclick="history.back()" aria-label="Go back">
+                <img src="../../assets/back-btn.svg" alt="" width="24" height="24">
+            </button>
+            <h2>Room Created</h2>
+        </section>
+
+        <!-- Success Banner -->
+        <section class="success-banner" data-room-created-banner hidden>
+            <div class="success-icon" aria-hidden="true">✓</div>
+
+            <div>
+                <h1>Room created successfully!</h1>
+                <p>Share this with others to join your room.</p>
+            </div>
+
+        </section>
+
+        <!-- Room Details Card -->
+        <section class="room-card">
+
+            <div class="room-details">
+
+                <!-- QR Code -->
+                <div class="qr-section">
+                    <div class="qr-container">
+                        <div id="qr-code" aria-label="Room QR code">
+                            <span class="qr-placeholder">QR</span>
+                        </div>
+                    </div>
+
+                    <p class="qr-caption">Scan QR code to join</p>
+                </div>
+
+                <!-- Room Credentials -->
+                <div class="credentials">
+
+                    <div class="credential-group">
+                        <label for="room-code">Room Code</label>
+
+                        <div class="credential-value">
+                            <span id="room-code"></span>
+
+                            <button class="icon-button"
+                                    type="button"
+                                    data-copy="room-code"
+                                    aria-label="Copy room code">
+                                <svg viewBox="0 0 24 24"
+                                     aria-hidden="true">
+                                    <rect x="8" y="4" width="12"
+                                          height="15" rx="2"/>
+                                    <path d="M5 8v12a2 2 0 0 0 2 2h10"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="credential-group">
+                        <label for="room-pin">PIN (6 digits)</label>
+
+                        <div class="credential-value">
+                            <span id="room-pin"></span>
+
+                            <button class="icon-button"
+                                    type="button"
+                                    data-copy="room-pin"
+                                    aria-label="Copy room PIN">
+                                <svg viewBox="0 0 24 24"
+                                     aria-hidden="true">
+                                    <rect x="8" y="4" width="12"
+                                          height="15" rx="2"/>
+                                    <path d="M5 8v12a2 2 0 0 0 2 2h10"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <!-- Sharing Actions -->
+            <div class="action-buttons">
+
+                <button class="action-button"
+                        type="button"
+                        id="copy-join-link">
+                    <span aria-hidden="true">
+                        <img src="../../assets/blue-copy-icon.svg" alt="">
+                    </span>
+                    Copy Join Link
+                </button>
+
+                <button class="action-button"
+                        type="button"
+                        id="share-qr">
+                    <span aria-hidden="true">
+                        <img src="../../assets/share-qr-icon.svg" alt="">
+                    </span>
+                    Share QR
+                </button>
+
+                <button class="action-button"
+                        type="button"
+                        id="share-via">
+                    <span aria-hidden="true">
+                        <img src="../../assets/share-via-icon.svg" alt="">
+                    </span>
+                    Share via...
+                </button>
+
+                <button class="action-button"
+                        type="button"
+                        id="open-room-dashboard">
+                    Open room dashboard
+                </button>
+
+            </div>
+        </section>
+
+        <!-- Room Settings -->
+        <section class="settings-card">
+
+            <div class="settings-info">
+                <div class="info-icon" aria-hidden="true">i</div>
+
+                <div>
+                    <h2>Room settings</h2>
+
+                    <p id="settings-summary">
+                        Files allowed <span>•</span>
+                        Auto close: 24 hours
+                    </p>
+                </div>
+            </div>
+
+            <button class="edit-button"
+                    id="edit-settings"
+                    type="button">
+                <span aria-hidden="true">
+                    <img src="../../assets/edit.svg" alt="edit" width="18px" height="18px">
+                </span>
+                Edit
+            </button>
+        </section>
+
+        <!-- Settings Dialog -->
+        <dialog id="settings-dialog" class="settings-dialog">
+            <form id="settings-form">
+
+                <div class="dialog-header">
+                    <h2>Edit room settings</h2>
+
+                    <button type="button"
+                            class="close-dialog"
+                            id="close-settings"
+                            aria-label="Close dialog">
+                        ×
+                    </button>
+                </div>
+
+                <label class="setting-option">
+                    <input type="checkbox"
+                           id="files-allowed"
+                           checked>
+                    Allow file transfers
+                </label>
+
+                <label for="auto-close">Auto close room</label>
+
+
+                <select id="auto-close">
+                    <option value="1">1 hour</option>
+                    <option value="12">12 hours</option>
+                    <option value="24">24 hours</option>
+                </select>
+
+
+                <p class="dialog-note">
+                    These changes update the page display.
+                    Connect your room settings API to save them
+                    to the server.
+                </p>
+
+                <button class="save-button" type="submit">
+                    Save settings
+                </button>
+
+            </form>
+        </dialog>
+
+        <!-- Feedback -->
+        <div id="toast" class="toast"
+             role="status"
+             aria-live="polite"></div>
+
+    </main>
+
+    <script src="../../scripts/components/header.js"></script>
+    <script src="../../scripts/vendor/qrcode-generator.js"></script>
+    <script src="../../scripts/pages/Room Created/room_created.js"></script>
+</body>
+</html>
