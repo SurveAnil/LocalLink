@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#ffffff">
+
+    <title>Scan QR Code | LocalLink</title>
+
+    <link rel="icon" type="image/svg+xml"
+          href="../../assets/favicon.svg">
+    <link rel="stylesheet" href="../../styles/global.css">
+    <link rel="stylesheet" href="../../styles/pages/Scan QR code/style.css">
+    <link rel="stylesheet" href="../../styles/components/header.css">
+    <link rel="stylesheet" href="../../styles/components/page-heading.css">
+</head>
+
+<body>
+    <!-- Existing shared header -->
+    <header id="header-container" class="header"></header>
+
+    <main class="scan-page">
+        <section class="page-heading" aria-labelledby="page-title">
+            <button class="back-btn" type="button"
+                    onclick="history.back()" aria-label="Go back">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M19 12H5m7 7-7-7 7-7"/>
+                </svg>
+            </button>
+            <h1 id="page-title">Scan QR Code</h1>
+        </section>
+
+        <section class="scanner" aria-label="QR code scanner">
+            <video id="camera-preview" autoplay muted playsinline
+                   aria-label="Camera preview"></video>
+            <div class="scanner-overlay">
+                <p class="scanner-instruction" id="scanner-instruction">
+                    Position the QR code within the frame
+                </p>
+                <div class="scan-frame" aria-hidden="true">
+                    <span class="frame-corner frame-top-left"></span>
+                    <span class="frame-corner frame-top-right"></span>
+                    <span class="frame-corner frame-bottom-left"></span>
+                    <span class="frame-corner frame-bottom-right"></span>
+                </div>
+                <div class="camera-placeholder" id="camera-placeholder">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M4 7h3l2-3h6l2 3h3a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2Z"/>
+                        <circle cx="12" cy="13" r="4"/>
+                    </svg>
+                    <span>Start your camera to scan</span>
+                </div>
+            </div>
+        </section>
+
+        <p class="scan-status" id="scan-status" role="status"
+           aria-live="polite"></p>
+
+        <div class="scanner-actions">
+            <button class="action-button" id="gallery-button"
+                    type="button">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <rect x="3" y="4" width="18" height="16" rx="2"/>
+                    <circle cx="8.5" cy="9" r="1.5"/>
+                    <path d="m21 15-5-5L5 20"/>
+                </svg>
+                <span>Choose from Gallery</span>
+            </button>
+            <button class="action-button" id="camera-button"
+                    type="button">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M4 7h3l2-3h6l2 3h3a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2Z"/>
+                    <circle cx="12" cy="13" r="4"/>
+                </svg>
+                <span id="camera-button-label">Start Camera</span>
+            </button>
+        </div>
+
+        <input id="gallery-input" type="file" accept="image/*" hidden>
+    </main>
+
+    <!-- Existing shared header script -->
+    <script src="../../scripts/components/header.js"></script>
+    <script src="../../scripts/vendor/jsQR.js"></script>
+    <script src="../../scripts/pages/Scan QR code/scanQR.js"></script>
+</body>
+
+</html>
