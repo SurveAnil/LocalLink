@@ -1,0 +1,62 @@
+/* ==========================================
+   Global Variables & Base Setup
+   ========================================== */
+:root {
+    --primary: #1E6BE0;
+    --primary-dark: #0F3F94;
+    --success: #16A34A;
+    --warning: #F59E0B;
+    --error: #DC2626;
+
+    --text-main: #111827;
+    --text-muted: #6B7280;
+    --border-color: #E5E7EB;
+    --bg-main: #F0F4F9;
+
+    --color-page-bg: var(--bg-main);
+    --color-surface: #ffffff;
+    --color-surface-muted: #F8FAFF;
+    --color-text-primary: var(--text-main);
+    --color-text-secondary: var(--text-muted);
+    --color-primary: var(--primary);
+    --color-primary-hover: var(--primary-dark);
+    --color-border: var(--border-color);
+    --color-focus: var(--primary);
+    --color-success: var(--success);
+    --color-warning: var(--warning);
+    --color-danger: var(--error);
+
+    --font-stack: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    --radius-card: 12px;
+    --radius-chip: 999px;
+    --transition-speed: 180ms;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--font-stack);
+    background-color: var(--color-page-bg);
+    color: var(--text-main);
+    font-size: 16px;
+    line-height: 1.5;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+:where(button, input, select, textarea, a[href]):focus-visible {
+    outline: 2px solid var(--color-focus);
+    outline-offset: 2px;
+}
+
+/* Motion preference adjustment */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+  }
+}
