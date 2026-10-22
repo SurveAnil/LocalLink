@@ -1,5 +1,16 @@
 (() => {
     function apiBaseUrl() {
+        const configuredBaseUrl = window.LocalLinkConfig?.apiBaseUrl;
+        if (configuredBaseUrl) {
+            const url = new URL(configuredBaseUrl);
+            if (url.protocol !== "https:" && url.protocol !== "http:") {
+                throw new TypeError(
+                    "The LocalLink API URL must use HTTP or HTTPS."
+                );
+            }
+            return url.toString().replace(/\/$/, "");
+        }
+
         const url = new URL(window.location.href);
         url.port = "8080";
         url.pathname = "/api/v1/rooms";

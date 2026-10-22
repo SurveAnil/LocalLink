@@ -26,8 +26,7 @@
     const recoveryByCodeKey =
         `locallink-host-recovery-by-code-${(roomCode || "").toUpperCase()}`;
     const pendingMessageKey = `locallink-pending-message-${roomId}`;
-    const apiBaseUrl =
-        `${window.location.protocol}//${window.location.hostname}:8080/api/v1/rooms`;
+    const apiBaseUrl = window.LocalLinkConnection.apiBaseUrl();
     let toastTimeout;
     let messages = [];
     let files = [];

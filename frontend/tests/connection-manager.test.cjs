@@ -24,6 +24,23 @@ test("connection manager derives REST and WebSocket endpoints from LAN page host
     );
 });
 
+test("connection manager uses the configured HTTPS API in production", () => {
+    const context = createContext("https://locallink.vercel.app");
+    context.window.LocalLinkConfig = {
+        apiBaseUrl: "https://locallink-api.onrender.com/api/v1/rooms"
+    };
+    vm.runInNewContext(source, context);
+
+    assert.equal(
+        context.window.LocalLinkConnection.apiBaseUrl(),
+        "https://locallink-api.onrender.com/api/v1/rooms"
+    );
+    assert.equal(
+        context.window.LocalLinkConnection.websocketUrl(),
+        "wss://locallink-api.onrender.com/ws"
+    );
+});
+
 test("connection manager authenticates STOMP and routes real-time room events", () => {
     const context = createContext("http://localhost:5500/dashboard.html");
     vm.runInNewContext(source, context);

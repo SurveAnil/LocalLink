@@ -66,6 +66,7 @@ public class SecurityConfig {
                                 .UsernamePasswordAuthenticationFilter.class)
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/health").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/v1/rooms").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/v1/rooms/join").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/v1/rooms/recover").permitAll()

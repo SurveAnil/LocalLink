@@ -27,6 +27,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 
 @SpringBootTest(properties = {
         "locallink.files.max-size-bytes=3",
@@ -55,6 +56,13 @@ class RoomControllerIntegrationTest {
 
     @Autowired
     private RoomFileService roomFileService;
+
+    @Test
+    void healthEndpointIsPublicAndReturnsOk() throws Exception {
+        mockMvc.perform(get("/health"))
+                .andExpect(status().isOk())
+                .andExpect(content().string("OK"));
+    }
 
     @Test
     void createRoomWithValidRequestReturnsCreatedRoom() throws Exception {

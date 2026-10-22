@@ -1,0 +1,29 @@
+services:
+  - type: web
+    name: locallink-backend
+    runtime: docker
+    plan: starter
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: .
+    healthCheckPath: /health
+    disk:
+      name: locallink-files
+      mountPath: /var/data/locallink
+      sizeGB: 10
+    envVars:
+      - key: SPRING_PROFILES_ACTIVE
+        value: cloud
+      - key: LOCALLINK_FILE_STORAGE
+        value: /var/data/locallink
+      - key: DB_HOST
+        sync: false
+      - key: DB_PORT
+        value: "5432"
+      - key: DB_NAME
+        value: locallink
+      - key: DB_USERNAME
+        sync: false
+      - key: DB_PASSWORD
+        sync: false
+      - key: LOCALLINK_CORS_ALLOWED_ORIGINS
+        sync: false
