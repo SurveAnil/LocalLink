@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#ffffff">
+    <title>Host Dashboard | LocalLink</title>
+    <link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg">
+    <link rel="stylesheet" href="../../styles/global.css">
+    <link rel="stylesheet" href="../../styles/room-dashboard.css">
+    <link rel="stylesheet" href="../../styles/pages/Sender dashboard/style.css">
+    <link rel="stylesheet" href="../../styles/components/header.css">
+    <link rel="stylesheet" href="../../styles/components/page-heading.css">
+</head>
+
+<body>
+    <header id="header-container" class="header"></header>
+
+    <main class="dashboard" data-role="sender">
+        <section class="dashboard-heading" aria-labelledby="dashboard-title">
+            <h1 id="dashboard-title" data-dashboard-title>Host Dashboard</h1>
+        </section>
+
+        <section class="room-summary" aria-label="Room summary">
+            <div class="room-card">
+                <div class="room-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <circle cx="9" cy="8" r="3.5"/>
+                        <path d="M2.5 20v-1.5a6.5 6.5 0 0 1 13 0V20z"/>
+                        <path d="M16 5a3.5 3.5 0 0 1 0 6.8m2 2.2a5.5 5.5 0 0 1 3.5 5.1V20H19"/>
+                    </svg>
+                </div>
+                <div class="room-info">
+                    <h2 data-room-name>Loading room…</h2>
+                    <div class="room-metadata">
+                        <p class="room-code">Room code: <strong data-room-code>—</strong></p>
+                        <span class="member-chip">
+                            <svg viewBox="0 0 24 24" aria-hidden="true">
+                                <circle cx="9" cy="8" r="3"/>
+                                <path d="M3 20v-1a6 6 0 0 1 12 0v1m3-9v6m-3-3h6"/>
+                            </svg>
+                            <span data-member-count>Loading members…</span>
+                        </span>
+                        <p class="room-expiry">Expires <time data-room-expiry>Loading…</time></p>
+                    </div>
+                </div>
+                <span class="owner-chip" aria-label="You are the host">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="m12 2 2.5 5.1 5.6.8-4.1 4 .9 5.6-4.9-2.6-5 2.6.9-5.6-4.1-4 5.7-.8z"/>
+                    </svg>
+                    You (Host)
+                </span>
+            </div>
+            <div class="room-connection">
+                <section class="connection-state" data-connection-status
+                         role="status" aria-live="polite">Connecting to room…</section>
+                <button class="connection-help-trigger" type="button"
+                        data-connection-help>Connection help</button>
+            </div>
+        </section>
+
+        <section class="room-expired" data-room-expired role="alert" hidden>
+            This room has expired. Chat, file sharing, and room actions are disabled.
+        </section>
+        <section class="room-status" data-room-status role="status" hidden></section>
+        <a data-host-recovery-link hidden>Recover Host Access</a>
+
+        <nav class="dashboard-actions" aria-label="Room actions">
+            <button class="dashboard-action" type="button" data-action="invite">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <circle cx="9" cy="8" r="3"/>
+                    <path d="M3 20v-1a6 6 0 0 1 12 0v1m4-11v6m-3-3h6"/>
+                </svg>
+                <span>Invite</span>
+            </button>
+            <button class="dashboard-action" type="button" data-action="qr">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M3 3h7v7H3zM14 3h7v7h-7zM3 14h7v7H3z"/>
+                    <path d="M14 14h3v3h-3zm4 0h3m-7 4v3h3m2-3h2v3"/>
+                </svg>
+                <span>Share QR</span>
+            </button>
+            <button class="dashboard-action" type="button" data-action="share">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <circle cx="18" cy="5" r="3"/>
+                    <circle cx="6" cy="12" r="3"/>
+                    <circle cx="18" cy="19" r="3"/>
+                    <path d="m8.7 10.6 6.6-4.2m-6.6 7 6.6 4.2"/>
+                </svg>
+                <span>Share Link</span>
+            </button>
+            <button class="dashboard-action close-room-action" type="button"
+                    data-close-room>
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M5 5l14 14M19 5 5 19"/>
+                </svg>
+                <span>Close Room</span>
+            </button>
+        </nav>
+
+        <div class="dashboard-tabs" role="tablist" aria-label="Room content">
+            <button class="dashboard-tab" id="chat-tab" type="button"
+                    role="tab" aria-selected="true" aria-controls="chat-panel"
+                    tabindex="0">Chat</button>
+            <button class="dashboard-tab" id="files-tab" type="button"
+                    role="tab" aria-selected="false" aria-controls="files-panel"
+                    tabindex="-1">Files</button>
+        </div>
+
+        <section class="tab-panel chat-panel" id="chat-panel"
+                 role="tabpanel" aria-labelledby="chat-tab">
+            <div class="message-list" id="message-list"
+                 aria-live="polite"></div>
+            <p class="room-status" data-message-state role="status"
+               aria-live="polite">Loading messages…</p>
+
+            <form class="composer" id="message-form">
+                <button class="composer-icon" id="attach-button"
+                        type="button" aria-label="Attach a file">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="m8 12.5 6.8-6.8a4 4 0 0 1 5.7 5.7l-9.2 9.2a6 6 0 0 1-8.5-8.5l9.2-9.2"/>
+                    </svg>
+                </button>
+                <input id="message-input" type="text" maxlength="1000"
+                       placeholder="Type a message..." autocomplete="off"
+                       aria-label="Type a message">
+                <button class="composer-icon" id="emoji-button"
+                        type="button" aria-label="Choose an emoji"
+                        aria-expanded="false">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <circle cx="12" cy="12" r="9"/>
+                        <path d="M8 14s1.3 2 4 2 4-2 4-2m-7-5h.01M15 9h.01"/>
+                    </svg>
+                </button>
+                <button class="send-button" type="submit"
+                        aria-label="Send message">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="m22 2-7 20-4-9-9-4zM22 2 11 13"/>
+                    </svg>
+                </button>
+                <div class="emoji-picker" id="emoji-picker" hidden>
+                    <button class="emoji-choice" type="button">😀</button>
+                    <button class="emoji-choice" type="button">👍</button>
+                    <button class="emoji-choice" type="button">❤️</button>
+                    <button class="emoji-choice" type="button">🎉</button>
+                    <button class="emoji-choice" type="button">😂</button>
+                </div>
+            </form>
+            <input id="file-input" type="file" hidden>
+            <section class="attachment-preview" data-attachment-preview
+                     aria-live="polite" hidden>
+                <div>
+                    <strong data-attachment-name></strong>
+                    <span data-attachment-size></span>
+                </div>
+                <p data-attachment-status role="status"></p>
+                <button type="button" data-upload-send>Upload &amp; Send</button>
+                <button type="button" data-remove-attachment>Remove</button>
+                <progress data-upload-progress max="100" value="0" hidden></progress>
+                <button class="dialog-action" type="button" data-cancel-upload
+                        hidden>Cancel upload</button>
+                <button class="dialog-action" type="button" data-retry-upload
+                        hidden>Retry upload</button>
+            </section>
+        </section>
+
+        <section class="tab-panel files-panel" id="files-panel"
+                 role="tabpanel" aria-labelledby="files-tab" hidden>
+            <p class="files-heading" id="files-heading">Shared files</p>
+            <div class="file-list" id="file-list"></div>
+            <p class="room-status" data-file-state role="status"
+               aria-live="polite">Loading files…</p>
+        </section>
+    </main>
+
+    <dialog class="dashboard-dialog" id="invite-dialog"
+            aria-labelledby="invite-title">
+        <div class="dialog-heading">
+            <h2 id="invite-title">Invite to this room</h2>
+            <button class="dialog-close" type="button" data-close-dialog
+                    aria-label="Close">×</button>
+        </div>
+        <p class="invite-copy">Share the room code and join link with your guests.</p>
+        <p class="invite-code" data-room-code>—</p>
+        <a class="invite-link" data-invite-link href="#"></a>
+        <button class="dialog-action" type="button" data-copy-invite>
+            Copy invite link
+        </button>
+    </dialog>
+    <dialog class="dashboard-dialog" id="connection-help-dialog"
+            aria-labelledby="connection-help-title">
+        <div class="dialog-heading">
+            <h2 id="connection-help-title">Reconnect to the room</h2>
+            <button class="dialog-close" type="button" data-close-dialog
+                    aria-label="Close">×</button>
+        </div>
+        <p>Check that this device and the room host are on the same Wi-Fi or hotspot, and that the host device and LocalLink server are still running.</p>
+        <p>If you changed networks, reconnect both devices to the same network and retry. You may start a hotspot in your device settings; this website cannot turn Wi-Fi, Bluetooth, or a hotspot on or grant operating-system permissions for you.</p>
+        <button class="dialog-action" type="button" data-connection-retry>Try again</button>
+    </dialog>
+
+    <dialog class="dashboard-dialog" id="qr-dialog"
+            aria-labelledby="qr-title">
+        <div class="dialog-heading">
+            <h2 id="qr-title">Share room QR code</h2>
+            <button class="dialog-close" type="button" data-close-dialog
+                    aria-label="Close">×</button>
+        </div>
+        <img class="qr-image" id="room-qr-image" alt="QR code for joining this room">
+        <p class="invite-copy">Scan this code to open the room join form.</p>
+        <button class="dialog-action" type="button" data-copy-invite>
+            Copy invite link
+        </button>
+    </dialog>
+
+    <div class="toast" id="dashboard-toast" role="status"
+         aria-live="polite"></div>
+
+    <script src="../../scripts/components/header.js"></script>
+    <script src="../../scripts/connection-manager.js"></script>
+    <script src="../../scripts/vendor/qrcode-generator.js"></script>
+    <script src="../../scripts/room-dashboard.js"></script>
+</body>
+
+</html>
