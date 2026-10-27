@@ -49,6 +49,135 @@ body {
     flex-direction: column;
 }
 
+body.dark-theme {
+    color-scheme: dark;
+    --text-main: #f1f3f5;
+    --text-muted: #b2bbc6;
+    --border-color: #3b4552;
+    --bg-main: #171b22;
+    --color-page-bg: var(--bg-main);
+    --color-surface: #222831;
+    --color-surface-muted: #2a323d;
+    --color-text-primary: var(--text-main);
+    --color-text-secondary: var(--text-muted);
+    --color-border: var(--border-color);
+    --text: var(--text-main);
+    --muted: var(--text-muted);
+    --border: var(--border-color);
+    --surface: var(--color-surface);
+    --page-bg: var(--bg-main);
+    --input-bg: #191f27;
+    --icon-bg: #2c3949;
+    --shadow: none;
+}
+
+body.dark-theme .header,
+body.dark-theme .dashboard,
+body.dark-theme .room-card,
+body.dark-theme .create-room-container,
+body.dark-theme .join-room-container,
+body.dark-theme .edit-room-page,
+body.dark-theme .settings-card,
+body.dark-theme .settings-dialog,
+body.dark-theme .search-box,
+body.dark-theme .topic-card,
+body.dark-theme .help-article,
+body.dark-theme .contact-card,
+body.dark-theme .contact-btn,
+body.dark-theme .host-recovery,
+body.dark-theme .host-recovery-dialog,
+body.dark-theme .file-message,
+body.dark-theme .composer,
+body.dark-theme .download-button,
+body.dark-theme .edit-button,
+body.dark-theme #auto-close {
+    border-color: var(--color-border);
+    background-color: var(--color-surface);
+    color: var(--color-text-primary);
+}
+
+body.dark-theme .host-recovery,
+body.dark-theme .room-summary,
+body.dark-theme .edit-room-page .page-heading,
+body.dark-theme .join-room-container .page-header,
+body.dark-theme .create-room-container .page-header,
+body.dark-theme .attachment-preview {
+    border-color: var(--color-border);
+}
+
+body.dark-theme .dashboard-action,
+body.dark-theme .dashboard-tabs,
+body.dark-theme .message-bubble,
+body.dark-theme .attachment-preview,
+body.dark-theme .credential-value,
+body.dark-theme .close-dialog,
+body.dark-theme .host-recovery-dialog-actions button {
+    background-color: var(--color-surface-muted);
+    color: var(--color-text-primary);
+}
+
+body.dark-theme input,
+body.dark-theme select,
+body.dark-theme textarea,
+body.dark-theme .host-recovery-dialog-actions button,
+body.dark-theme .host-recovery-btn,
+body.dark-theme .button-secondary,
+body.dark-theme .action-button,
+body.dark-theme .landing-action-secondary {
+    border-color: var(--color-border);
+    background-color: var(--input-bg);
+    color: var(--color-text-primary);
+}
+
+body.dark-theme .host-recovery p,
+body.dark-theme .host-recovery h2,
+body.dark-theme .host-recovery-dialog,
+body.dark-theme .qr-left,
+body.dark-theme .credential-group label,
+body.dark-theme .credential-value > span,
+body.dark-theme .room-info h2,
+body.dark-theme .room-code,
+body.dark-theme .message-meta,
+body.dark-theme .message-meta strong,
+body.dark-theme .dashboard-tab,
+body.dark-theme .dashboard-action,
+body.dark-theme .attachment-preview,
+body.dark-theme .attachment-preview > p,
+body.dark-theme .file-details strong,
+body.dark-theme .file-details .file-open,
+body.dark-theme .file-details span,
+body.dark-theme .download-button,
+body.dark-theme .edit-button,
+body.dark-theme .contact-btn {
+    color: var(--color-text-primary);
+}
+
+body.dark-theme .host-recovery-btn:hover,
+body.dark-theme .action-button:hover,
+body.dark-theme .landing-action-secondary:hover,
+body.dark-theme .icon-button:hover,
+body.dark-theme .button-secondary:hover,
+body.dark-theme .topic-card:hover,
+body.dark-theme .topic-toggle:hover,
+body.dark-theme .composer-icon:hover,
+body.dark-theme .download-button:hover,
+body.dark-theme .edit-button:hover {
+    background-color: #20365b;
+}
+
+body.dark-theme .contact-icon {
+    background-color: #20365b;
+}
+
+body.dark-theme .room-info h2 {
+    color: var(--color-text-primary);
+}
+
+body.dark-theme .header {
+    border-bottom-color: #3b4552;
+    background-color: #202630;
+}
+
 :where(button, input, select, textarea, a[href]):focus-visible {
     outline: 2px solid var(--color-focus);
     outline-offset: 2px;

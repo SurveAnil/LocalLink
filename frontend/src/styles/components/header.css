@@ -38,6 +38,17 @@
     display: block;
 }
 
+
+body.dark-theme .setting img {
+    filter: brightness(0) invert(1);
+}
+
+body.dark-theme .logo img {
+    padding: 4px 6px;
+    border-radius: 6px;
+    background: #ffffff;
+}
+
 .setting {
     display: block;
     border-radius: 6px;
