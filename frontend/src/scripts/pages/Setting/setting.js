@@ -3,11 +3,21 @@ const profileName = document.getElementById("profile-name");
 const charCount = document.getElementById("char-count");
 const profileError = document.getElementById("profile-error");
 const themeSelect = document.getElementById("theme-select");
-const languageSelect = document.getElementById("language-select");
 const clearAfterSelect = document.getElementById("clear-after");
 const saveStatus = document.getElementById("save-status");
 
 const SETTINGS_KEY = "locallink-settings";
+let saveStatusTimeout;
+
+function showSaveStatus(message, isError = false) {
+    window.clearTimeout(saveStatusTimeout);
+    saveStatus.textContent = message;
+    saveStatus.classList.toggle("is-error", isError);
+    saveStatus.classList.add("is-visible");
+    saveStatusTimeout = window.setTimeout(() => {
+        saveStatus.classList.remove("is-visible");
+    }, 3000);
+}
 
 function getSettings() {
     try {
@@ -21,31 +31,19 @@ function saveSettings() {
     const settings = {
         profileName: profileName.value.trim(),
         theme: themeSelect.value,
-        language: languageSelect.value,
         clearAfter: clearAfterSelect.value
     };
 
     try {
         localStorage.setItem(SETTINGS_KEY, JSON.stringify(settings));
-        saveStatus.textContent = "Settings saved";
+        showSaveStatus("Settings saved");
     } catch {
-        saveStatus.textContent = "Unable to save settings on this device";
+        showSaveStatus("Unable to save settings on this device", true);
     }
 }
 
 function updateCharacterCount() {
     charCount.textContent = `${profileName.value.length}/32`;
-}
-
-function applyTheme(theme) {
-    const prefersDark = window.matchMedia(
-        "(prefers-color-scheme: dark)"
-    ).matches;
-
-    const useDark = theme === "dark" ||
-        (theme === "system" && prefersDark);
-
-    document.body.classList.toggle("dark-theme", useDark);
 }
 
 function loadSettings() {
@@ -59,10 +57,6 @@ function loadSettings() {
         themeSelect.value = settings.theme;
     }
 
-    if (["en", "hi", "es", "fr"].includes(settings.language)) {
-        languageSelect.value = settings.language;
-    }
-
     const allowedDurations = ["never", "1", "24", "72", "168"];
 
     if (allowedDurations.includes(settings.clearAfter)) {
@@ -70,12 +64,14 @@ function loadSettings() {
     }
 
     updateCharacterCount();
-    applyTheme(themeSelect.value);
+    window.applyLocalLinkTheme(themeSelect.value);
 }
 
 profileName.addEventListener("input", () => {
     updateCharacterCount();
     profileError.textContent = "";
+    window.clearTimeout(saveStatusTimeout);
+    saveStatus.classList.remove("is-visible", "is-error");
     saveStatus.textContent = "";
 });
 
@@ -93,18 +89,10 @@ profileName.addEventListener("change", () => {
 });
 
 themeSelect.addEventListener("change", () => {
-    applyTheme(themeSelect.value);
     saveSettings();
+    window.applyLocalLinkTheme(themeSelect.value);
 });
 
-languageSelect.addEventListener("change", saveSettings);
 clearAfterSelect.addEventListener("change", saveSettings);
-
-window.matchMedia("(prefers-color-scheme: dark)")
-    .addEventListener("change", () => {
-        if (themeSelect.value === "system") {
-            applyTheme("system");
-        }
-    });
 
 loadSettings();
